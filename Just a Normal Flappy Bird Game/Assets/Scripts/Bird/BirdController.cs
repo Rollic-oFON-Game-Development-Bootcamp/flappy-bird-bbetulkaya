@@ -48,7 +48,7 @@ public class BirdController : MonoBehaviour
         rb.velocity = Vector2.zero;
         rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Force);
     }
-    private void Death()
+    private void DeathMove()
     {
         isAlive = false;
         tiltSmooth = 3f;
@@ -58,8 +58,23 @@ public class BirdController : MonoBehaviour
     {
         if (other.collider.CompareTag("Pipe"))
         {
-            Death();
+            other.collider.enabled = false;
+            DeathMove();
             GameManager.Instance.GameOver();
+        }
+        if (other.collider.CompareTag("Ground"))
+        {
+            DeathMove();
+            GameManager.Instance.GameOver();
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("ScoreZone"))
+        {
+            // Increase score
+            GameManager.Instance.UpdateScore();
         }
     }
 }
