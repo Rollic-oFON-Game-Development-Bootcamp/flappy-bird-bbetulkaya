@@ -198,7 +198,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 40987130}
-  - component: {fileID: 40987131}
+  - component: {fileID: 40987132}
   m_Layer: 7
   m_Name: Pipes
   m_TagString: Untagged
@@ -220,21 +220,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &40987131
+--- !u!114 &40987132
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 40987129}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30334fa1f32b23f4c87ee5a86aebd835, type: 3}
+  m_Script: {fileID: 11500000, guid: 67d29f53da12dfa45844d1f0e2ddbcdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnRate: 0.7
-  minHeight: -1.5
-  maxHeight: 1.5
+  spawnRate: 0.6
+  minHeight: 0
+  maxHeight: 3
   pipes: []
   isGameOver: 0
 --- !u!1 &122778328
@@ -1037,8 +1037,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45afc1d983d07b64f92133a66b7521d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pipeController: {fileID: 40987131}
+  pipeSpawner: {fileID: 40987132}
   birdController: {fileID: 1512206662}
+  birdAI: {fileID: 0}
   UIManager: {fileID: 1696482136}
   levelManager: {fileID: 1696482140}
   isGameOverCalled: 0
@@ -1068,6 +1069,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxLoseTime: 4
+  currentLevel: 0
 --- !u!1 &1698376768
 GameObject:
   m_ObjectHideFlags: 0
@@ -1116,10 +1118,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1080, y: 1920}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
