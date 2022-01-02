@@ -154,7 +154,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputManager: {fileID: 786179412}
-  swerveSpeed: 1
+  swerveSpeed: 0.7
   maxSwerveAmount: 3
 --- !u!4 &50698162
 Transform:
@@ -182,7 +182,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67d29f53da12dfa45844d1f0e2ddbcdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnRate: 0.5
+  spawnRate: 0.6
   minHeight: 0
   maxHeight: 4
   pipes: []
@@ -658,7 +658,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxLoseTime: 4
-  currentLevel: 0
+  maxPlayTime: 20
+  timeElapsed: 0
 --- !u!114 &786179409
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1250,9 +1251,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 1776662511}
-  jumpForce: 6
+  jumpForce: 5
   maxYPos: 0.3
-  maxRotationValue: 25
+  maxRotationValue: 15
   tiltSmooth: 15
 --- !u!1 &1804240276
 GameObject:
