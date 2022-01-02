@@ -7,6 +7,7 @@ public class LevelManager : MonoBehaviour
 {
     [SerializeField] private static int numberOfLose;
     [SerializeField] private int maxLoseTime;
+    [SerializeField] private int currentLevel;
 
 
     public void IncreaseNumberOfLose()
@@ -37,5 +38,9 @@ public class LevelManager : MonoBehaviour
     public void LoadLevel(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
+    }
+    public string CurrentLevel()
+    {
+        return SceneManager.GetActiveScene().name;
     }
 }

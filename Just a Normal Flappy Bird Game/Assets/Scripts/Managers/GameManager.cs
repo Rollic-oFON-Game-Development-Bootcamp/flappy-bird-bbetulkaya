@@ -22,8 +22,9 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
-    [SerializeField] private PipeController pipeController;
+    [SerializeField] private PipeSpawner pipeSpawner;
     [SerializeField] private BirdController birdController;
+    [SerializeField] private BirdAI birdAI;
     [SerializeField] private UIManager UIManager;
     [SerializeField] private LevelManager levelManager;
 
@@ -44,20 +45,28 @@ public class GameManager : MonoBehaviour
             ScoreManager.Instance.SaveScore();
 
             UIManager.GameOverPanel(true);
-            pipeController.isGameOver = true;
-            birdController.enabled = false;
+            pipeSpawner.isGameOver = true;
         }
 
     }
     public void GameStart()
     {
         UIManager.GamePlayPanel(true);
-        birdController.enabled = true;
-        pipeController.enabled = true;
+
+        if (!(levelManager.CurrentLevel() == "Prototype2"))
+        {
+            birdController.enabled = true;
+        }
+        else
+        {
+            birdAI.enabled = true;
+        }
+        
+        pipeSpawner.enabled = true;
     }
-    public void UpdateScore()
+    public void UpdateScore(int value)
     {
-        ScoreManager.Instance.IncreaseScore(1);
+        ScoreManager.Instance.SetCurrentScore(value);
         UIManager.UpdateScoreText(ScoreManager.Instance.GetCurrentScore());
     }
     public void Restart()

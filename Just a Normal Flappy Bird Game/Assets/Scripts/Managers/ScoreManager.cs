@@ -25,14 +25,9 @@ public class ScoreManager : MonoBehaviour
     [SerializeField] private int currentScore;
     [SerializeField] private static int highScore;
 
-    public void IncreaseScore(int scoreValue)
-    {
-        SetCurrentScore(currentScore + scoreValue);
-    }
-
     public void SetCurrentScore(int score)
     {
-        currentScore = score;
+        currentScore += score;
     }
     public int GetCurrentScore()
     {
