@@ -77,6 +77,8 @@ public class BirdAI : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Pipe"))
         {
+            // Later on, I'll find a better solution :/
+            other.collider.transform.parent.gameObject.SetActive(false);
             GameManager.Instance.UpdateScore(-1);
         }
     }

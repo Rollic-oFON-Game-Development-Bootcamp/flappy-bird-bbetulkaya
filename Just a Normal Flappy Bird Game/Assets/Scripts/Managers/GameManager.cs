@@ -71,7 +71,7 @@ public class GameManager : MonoBehaviour
     }
     public void Restart()
     {
-        if (levelManager.IsNextLevelLoad())
+        if (levelManager.IsLevel1Complete())
         {
             levelManager.LoadLevel("Prototype2");
         }
