@@ -74,7 +74,7 @@ public class BirdController : MonoBehaviour
         if (other.CompareTag("ScoreZone"))
         {
             // Increase score
-            GameManager.Instance.UpdateScore();
+            GameManager.Instance.UpdateScore(1);
         }
     }
 }
