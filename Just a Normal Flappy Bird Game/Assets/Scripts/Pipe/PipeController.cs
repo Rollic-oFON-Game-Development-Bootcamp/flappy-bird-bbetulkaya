@@ -4,43 +4,22 @@ using UnityEngine;
 
 public class PipeController : MonoBehaviour
 {
-    [SerializeField] private float spawnRate;
-    [SerializeField] private float minHeight;
-    [SerializeField] private float maxHeight;
+    [SerializeField] private InputManager inputManager;
+    [SerializeField] private float swerveSpeed = 0.5f;
+    [SerializeField] private float maxSwerveAmount;
 
-    [SerializeField] private List<GameObject> pipes;
-    [SerializeField] public bool isGameOver = false;
-
-    private void Start()
+    private void Update()
     {
-        StartCoroutine(SpawnPipe());
+        HandleMovement();
     }
-    IEnumerator SpawnPipe()
+    private void HandleMovement()
     {
-        if (!isGameOver)
-        {
-            yield return new WaitForSeconds(spawnRate);
-            GameObject pipe = ObjectPooler.Instance.SpawnFromPool("Pipe", transform.position, Quaternion.identity);
-            pipe.transform.position += Vector3.up * Random.Range(minHeight, maxHeight);
-            pipes.Add(pipe);
+        float swerveAmount = Time.deltaTime * swerveSpeed * inputManager.MoveFactorY;
 
-
-            yield return new WaitForSeconds(spawnRate);
-            StartCoroutine(SpawnPipe());
-        }
-        else
-        {
-            StopAllPipes();
-            StopCoroutine(SpawnPipe());
-        }
-
-
+        var currentPos = this.transform.position;
+        currentPos += Vector3.up * swerveAmount;
+        currentPos.y = Mathf.Clamp(currentPos.y, -maxSwerveAmount, maxSwerveAmount);
+        transform.position = currentPos;
     }
-    private void StopAllPipes()
-    {
-        foreach (GameObject pipe in pipes)
-        {
-            pipe.GetComponent<Pipe>().isCanMove = false;
-        }
-    }
+
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class Pipe : MonoBehaviour
 {
     [SerializeField] public bool isCanMove;
-    [SerializeField] private float pipeSpeed = 5f;
+    [SerializeField] private float pipeSpeed;
     [SerializeField] private float limitOffSet;
     private float xMovementLimit;
 
