@@ -132,6 +132,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 50698162}
+  - component: {fileID: 50698163}
   - component: {fileID: 50698161}
   m_Layer: 7
   m_Name: Pipes
@@ -147,16 +148,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 50698160}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 30334fa1f32b23f4c87ee5a86aebd835, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnRate: 0.7
-  minHeight: -1.5
-  maxHeight: 1.5
-  pipes: []
-  isGameOver: 0
+  inputManager: {fileID: 786179412}
+  swerveSpeed: 1
+  maxSwerveAmount: 3
 --- !u!4 &50698162
 Transform:
   m_ObjectHideFlags: 0
@@ -171,6 +170,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &50698163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 50698160}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67d29f53da12dfa45844d1f0e2ddbcdb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnRate: 0.5
+  minHeight: 0
+  maxHeight: 4
+  pipes: []
+  isGameOver: 0
 --- !u!1 &70318540
 GameObject:
   m_ObjectHideFlags: 0
@@ -603,6 +619,7 @@ GameObject:
   - component: {fileID: 786179409}
   - component: {fileID: 786179410}
   - component: {fileID: 786179408}
+  - component: {fileID: 786179412}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -622,8 +639,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45afc1d983d07b64f92133a66b7521d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pipeController: {fileID: 50698161}
-  birdController: {fileID: 1776662510}
+  pipeSpawner: {fileID: 50698163}
+  birdController: {fileID: 0}
+  birdAI: {fileID: 1776662513}
   UIManager: {fileID: 786179409}
   levelManager: {fileID: 786179408}
   isGameOverCalled: 0
@@ -640,6 +658,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxLoseTime: 4
+  currentLevel: 0
 --- !u!114 &786179409
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -684,6 +703,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &786179412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 786179406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ae7d7c79c4e39b4dbb8dcc7b393951d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1174423611
 GameObject:
   m_ObjectHideFlags: 0
@@ -931,7 +962,7 @@ GameObject:
   - component: {fileID: 1586615560}
   m_Layer: 0
   m_Name: Bird
-  m_TagString: Untagged
+  m_TagString: Bird
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1162,31 +1193,14 @@ GameObject:
   m_Component:
   - component: {fileID: 1776662512}
   - component: {fileID: 1776662511}
-  - component: {fileID: 1776662510}
+  - component: {fileID: 1776662513}
   m_Layer: 0
-  m_Name: BirdRoot
-  m_TagString: Player
+  m_Name: BirdAI
+  m_TagString: Bird
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1776662510
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1776662509}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 544e2f3f44b154545bc9b252f23ffaa3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rb: {fileID: 1776662511}
-  jumpForce: 170
-  tiltSmooth: 0.7
-  maxRotationValue: 40
-  minRotValue: -90
 --- !u!50 &1776662511
 Rigidbody2D:
   serializedVersion: 4
@@ -1195,14 +1209,14 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1776662509}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -1216,13 +1230,30 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1776662509}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.39, y: 0, z: 0}
+  m_LocalPosition: {x: -1.39, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1586615559}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1776662513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1776662509}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1004eb79145332b408744443dc677cc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 1776662511}
+  jumpForce: 6
+  maxYPos: 0.3
+  maxRotationValue: 25
+  tiltSmooth: 15
 --- !u!1 &1804240276
 GameObject:
   m_ObjectHideFlags: 0
@@ -1235,7 +1266,7 @@ GameObject:
   - component: {fileID: 1804240278}
   m_Layer: 0
   m_Name: Circle
-  m_TagString: Untagged
+  m_TagString: Bird
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
